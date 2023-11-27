@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  IMAGE_NAME: kantox
+  IMAGE_NAME: kantox-challenge
 
 jobs:
   build:
