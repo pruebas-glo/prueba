@@ -1,47 +1,3 @@
-# name: Update Deployment Image
-
-# on:
-#   workflow_run:
-#     workflows: ["CI"]
-#     types:
-#       - completed
-
-# jobs:
-#   update-deployment:
-#     runs-on: ubuntu-latest
-
-#     env:
-#       DEPLOYMENT_FILE: "Kubernetes/deployment.yaml"
-#       SERVICE_FILE: "Kubernetes/service.yaml"
-#       GIT_USER_NAME: "GitHub Actions"
-#       GIT_USER_EMAIL: "actions@github.com"
-
-#     steps:
-#     - name: Checkout Repository
-#       uses: actions/checkout@v2
-
-#     - name: Configure Git User
-#       run: |
-#         git config --global user.name "$GIT_USER_NAME"
-#         git config --global user.email "$GIT_USER_EMAIL"
-
-#     - name: Get the latest image version
-#       id: get_latest_image
-#       run: |
-#         DOCKERHUB_IMAGE=jaimehenao8126/kantox
-#         LATEST_TAG=$(curl -s "https://hub.docker.com/v2/repositories/$DOCKERHUB_IMAGE/tags/?page_size=1" | jq -r '.results[0].name')
-#         echo "::set-output name=latest_image::$DOCKERHUB_IMAGE:$LATEST_TAG"
-
-#     - name: Update Image in $DEPLOYMENT_FILE
-#       run: |
-#         sed -i "s|image: .*/kantox:.*|image: ${{ steps.get_latest_image.outputs.latest_image }}|g" $DEPLOYMENT_FILE
-#         git diff --exit-code $DEPLOYMENT_FILE || (git add $DEPLOYMENT_FILE && git commit -m "Update image in $DEPLOYMENT_FILE - Latest tag" && git push)
-
-#     - name: Update Image in $SERVICE_FILE
-#       run: |
-#         sed -i "s|image: .*/kantox:.*|image: ${{ steps.get_latest_image.outputs.latest_image }}|g" $SERVICE_FILE
-#         git diff --exit-code $SERVICE_FILE || (git add $SERVICE_FILE && git commit -m "Update image in $SERVICE_FILE - Latest tag" && git push)
-
 name: Update Deployment Image
 
 on:
@@ -76,12 +32,10 @@ jobs:
         LATEST_TAG=$(curl -s "https://hub.docker.com/v2/repositories/$DOCKERHUB_IMAGE/tags/?page_size=1" | jq -r '.results[0].name')
         echo "::set-output name=latest_image::$DOCKERHUB_IMAGE:$LATEST_TAG"
 
-    - name: Update Image in $DEPLOYMENT_FILE
+    - name: Update Image
       run: |
-        sed -i "s|image: jaimehenao8126/kantox-challange:.*|image: ${{ steps.get_latest_image.outputs.latest_image }}|g" $DEPLOYMENT_FILE
-        git diff --exit-code $DEPLOYMENT_FILE || (git add $DEPLOYMENT_FILE && git commit -m "Update image in $DEPLOYMENT_FILE - Latest tag" && git push)
+        sed -i "s|image: jaimehenao8126/kantox-challange:.*|image: ${{ steps.get_latest_image.outputs.latest_image }}|g" $DEPLOYMENT_FILE $SERVICE_FILE
+        git diff --exit-code $DEPLOYMENT_FILE $SERVICE_FILE || (git add $DEPLOYMENT_FILE $SERVICE_FILE && git commit -m "Update images - Latest tag" && git push)
 
-    - name: Update Image in $SERVICE_FILE
-      run: |
-        sed -i "s|image: jaimehenao8126/kantox-challange:.*|image: ${{ steps.get_latest_image.outputs.latest_image }}|g" $SERVICE_FILE
-        git diff --exit-code $SERVICE_FILE || (git add $SERVICE_FILE && git commit -m "Update image in $SERVICE_FILE - Latest tag" && git push)
+
+
