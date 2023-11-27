@@ -72,16 +72,16 @@ jobs:
     - name: Get the latest image version
       id: get_latest_image
       run: |
-        DOCKERHUB_IMAGE=jaimehenao8126/kantox
+        DOCKERHUB_IMAGE=jaimehenao8126/kantox-challange
         LATEST_TAG=$(curl -s "https://hub.docker.com/v2/repositories/$DOCKERHUB_IMAGE/tags/?page_size=1" | jq -r '.results[0].name')
         echo "::set-output name=latest_image::$DOCKERHUB_IMAGE:$LATEST_TAG"
 
     - name: Update Image in $DEPLOYMENT_FILE
       run: |
-        sed -i "s|image: jaimehenao8126/kantox:.*|image: ${{ steps.get_latest_image.outputs.latest_image }}|g" $DEPLOYMENT_FILE
+        sed -i "s|image: jaimehenao8126/kantox-challange:.*|image: ${{ steps.get_latest_image.outputs.latest_image }}|g" $DEPLOYMENT_FILE
         git diff --exit-code $DEPLOYMENT_FILE || (git add $DEPLOYMENT_FILE && git commit -m "Update image in $DEPLOYMENT_FILE - Latest tag" && git push)
 
     - name: Update Image in $SERVICE_FILE
       run: |
-        sed -i "s|image: jaimehenao8126/kantox:.*|image: ${{ steps.get_latest_image.outputs.latest_image }}|g" $SERVICE_FILE
+        sed -i "s|image: jaimehenao8126/kantox-challange:.*|image: ${{ steps.get_latest_image.outputs.latest_image }}|g" $SERVICE_FILE
         git diff --exit-code $SERVICE_FILE || (git add $SERVICE_FILE && git commit -m "Update image in $SERVICE_FILE - Latest tag" && git push)
