@@ -84,10 +84,3 @@ jobs:
         repository: JaimeHenaoChallange/KubeOps
         event-type: new-image
         client-payload: '{"image": "'${{ env.IMAGE_NAME }}:${{ github.run_number }}'"}'
-
-
-
-
-
-
-
