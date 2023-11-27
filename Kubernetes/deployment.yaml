@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: hw-container
-        image: jaimehenao8126/kantox-challenge
+        image: jaimehenao8126/kantox-challenge:8
 
         ports:
         - containerPort: 80
