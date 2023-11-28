@@ -5,30 +5,41 @@ on:
     branches:
       - main
 
+env:
+  IMAGE_NAME: kantox-skill
+
 jobs:
-  build-and-push:
+  build:
     runs-on: ubuntu-latest
 
     steps:
+    # Paso 1: Obtener una copia del repositorio
     - name: Checkout Repository
       uses: actions/checkout@v2
 
-    - name: Login to Docker Hub
-      run: docker login -u ${{ secrets.DOCKER_USERNAME_JAIME }} -p ${{ secrets.DOCKER_PASSWORD_JAIME }}
+    # Paso 2: Iniciar sesión en DockerHub
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Get the current image count
-      id: count
-      run: echo "::set-output name=count::$(docker images -q jaimehenao8126/challange-kantox | wc -l)"
+    # Paso 3: Construir y publicar la imagen Docker
+    - name: Build and Push Docker Image
+      uses: docker/build-push-action@v2
+      with:
+        context: ./Docker
+        push: true
+        tags: ${{ github.actor }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}
 
-    - name: Build and Tag Docker Image
-      run: |
-        docker build -t jaimehenao8126/challange-kantox:latest -f Docker/Dockerfile .
-        docker tag jaimehenao8126/challange-kantox:latest jaimehenao8126/challange-kantox:${{ steps.count.outputs.count }}
-      env:
-        DOCKER_CLI_ACI: 1
-
-    - name: Push Docker Image
-      run: docker push jaimehenao8126/challange-kantox:latest
+    # Paso 4: Desencadenar un evento de nueva imagen en otro repositorio
+    - name: Trigger New Image Event
+      uses: peter-evans/repository-dispatch@v1
+      with:
+        token: ${{ secrets.PAT }}
+        repository: JaimeHenaoChallange/KubeOps
+        event-type: new-image
+        client-payload: '{"image": "${{ github.actor }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}"}'
 
 
 
