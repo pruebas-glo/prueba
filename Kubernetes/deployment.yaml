@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: hw-container
-        image: jaimehenao8126/kantox-challenge:22
+        image: bitnami/git:latest
 
         ports:
         - containerPort: 80
