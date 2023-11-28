@@ -1,9 +1,12 @@
-name: Docker Build & Push
+name: CI
 
 on:
   push:
     branches:
       - main
+    paths:
+      - 'Dockerfile'
+      - 'index.html'
 
 env:
   IMAGE_NAME: kantox-skill
@@ -31,6 +34,7 @@ jobs:
         context: ./Docker
         push: true
         tags: ${{ github.actor }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}
+
 
     # # Paso 4: Desencadenar un evento de nueva imagen en otro repositorio
     # - name: Trigger New Image Event

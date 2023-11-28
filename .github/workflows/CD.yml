@@ -1,0 +1,30 @@
+name: CD
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Paso 1: Obtener una copia del repositorio
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    # Paso 2: Actualizar la imagen en el archivo deployment.yaml
+    - name: Update Image in deployment.yaml
+      run: |
+        sed -i 's|image:.*|image: '"${{ github.actor }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}"'|' ./Kubernetes/deployment.yaml
+
+    # Paso 3: Commit y Push los cambios al repositorio
+    - name: Commit and Push Changes
+      run: |
+        git config --local user.email "actions@github.com"
+        git config --local user.name "GitHub Actions"
+        git add .
+        git commit -m "Update image in deployment.yaml [skip ci]"
+        git push
