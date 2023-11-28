@@ -1,4 +1,4 @@
-name: Docker Build and Test
+name: Docker Build & Push
 
 on:
   push:
@@ -6,31 +6,26 @@ on:
       - main
 
 jobs:
-  build-and-test:
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
+    - name: Checkout Repository
       uses: actions/checkout@v2
 
-    - name: Set up Docker
-      uses: actions/setup-docker@v2
-      with:
-        include_prerelease: true
+    - name: Login to Docker Hub
+      run: docker login -u ${{ secrets.DOCKER_USERNAME_JAIME }} -p ${{ secrets.DOCKER_PASSWORD_JAIME }}
 
-    - name: Build Docker image
-      run: |
-        docker build -t ${{ github.repository_owner }}/kubeops:v${{ github.run_number }} ./Docker
-        docker tag ${{ github.repository_owner }}/kubeops:v${{ github.run_number }} ${{ github.repository_owner }}/kubeops:latest
+    - name: Get the current image count
+      id: count
+      run: echo "::set-output name=count::$(docker images -q jaimehenao8126/challange-kantox | wc -l)"
 
-    - name: Push Docker image to GitHub Container Registry
+    - name: Build and Tag Docker Image
       run: |
-        echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-        docker push ghcr.io/${{ github.repository_owner }}/kubeops:v${{ github.run_number }}
-        docker push ghcr.io/${{ github.repository_owner }}/kubeops:latest
+        docker build -t jaimehenao8126/challange-kantox:latest -f Docker/Dockerfile .
+        docker tag jaimehenao8126/challange-kantox:latest jaimehenao8126/challange-kantox:${{ steps.count.outputs.count }}
+      env:
+        DOCKER_CLI_ACI: 1
 
-    - name: Push Docker image to Docker Hub
-      run: |
-        echo ${{ secrets.DOCKER_PASSWORD_JAIME }} | docker login -u ${{ secrets.DOCKER_USERNAME_JAIME }} --password-stdin
-        docker push ${{ github.repository_owner }}/kubeops:v${{ github.run_number }}
-        docker push ${{ github.repository_owner }}/kubeops:latest
+    - name: Push Docker Image
+      run: docker push jaimehenao8126/challange-kantox:latest
