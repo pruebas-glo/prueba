@@ -3,7 +3,12 @@ kind: Deployment
 metadata:
   name: hw-deploy
 spec:
-  replicas: 1
+  replicas: 3  # Ajusta el número de replicas según tus necesidades
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
   selector:
     matchLabels:
       app: hw
@@ -15,6 +20,5 @@ spec:
       containers:
       - name: hw-container
         image: jaimehenao8126/kantox:00f2c5fe35ab6badc8a52216e18b7202b11b7a73
-
         ports:
         - containerPort: 80
