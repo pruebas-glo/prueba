@@ -1,17 +1,22 @@
-# Proyecto Hello World con Kubernetes, GitHub Actions y ArgoCD
+# Proyecto Hello World con Kubernetes, GitHub Actions y ArgoCD por Jaime Andres Henao
 
-.
-├── .github
-│   └── workflows
-│       └── cd.yml
-├── Docker
-│   └── Dockerfile
-│   └── index.html
-├── Kubernetes
-│   └── deployment.yaml
-│   └── service.yaml
-├── .gitignore
-├── README.md
+Estructura:
+
+```console
+├── KubeOps
+│   ├── .github
+│   │   └── workflows
+│   │       └── cd.yml
+│   ├── Docker
+│   │   ├── Dockerfile
+│   │   ├── index.html
+│   ├── Kubernetes
+│   │   ├── deployment.yaml
+│   │   ├── service.yaml
+│   ├── .gitignore
+│   └── README.md
+└──
+```
 
 Este proyecto demuestra cómo desplegar una aplicación "Hello World" en un clúster de Minikube utilizando GitHub Actions para la implementación continua y ArgoCD para la entrega continua.
 
