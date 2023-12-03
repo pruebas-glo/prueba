@@ -35,15 +35,14 @@ jobs:
         push: true
         tags: ${{ github.actor }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}
 
-
-    # # Paso 4: Desencadenar un evento de nueva imagen en otro repositorio
-    # - name: Trigger New Image Event
-    #   uses: peter-evans/repository-dispatch@v1
-    #   with:
-    #     token: ${{ secrets.PAT }}
-    #     repository: JaimeHenaoChallange/KubeOps
-    #     event-type: new-image
-    #     client-payload: '{"image": "${{ github.actor }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}"}'
+    # Paso 4: Desencadenar un evento de nueva imagen en otro repositorio
+    - name: Trigger New Image Event
+      uses: peter-evans/repository-dispatch@v1
+      with:
+        token: ${{ secrets.PAT }}
+        repository: JaimeHenaoChallange/KubeOps
+        event-type: new-image
+        client-payload: '{"image": "${{ github.actor }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}"}'
 
 
 
