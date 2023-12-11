@@ -171,7 +171,10 @@ Instalación con Helm Chart y gestion desde CLI
 
     ![argocd](doc/app_kube-svc2.png)
 
+**Diagrama**
+
+![Solucion IaC](doc/Diagrama kubeops.jpg)
+
 
 Jaime A. Henao
-
 Cloud Enginer.
