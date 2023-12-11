@@ -21,6 +21,61 @@
 
 Este proyecto demuestra cómo desplegar una aplicación "Hello World" en un clúster de Minikube utilizando GitHub Actions para la implementación continua y ArgoCD para la entrega continua.
 
+## Contexto.
+
+En este proyecto, he implementado un entorno de desarrollo en WSL2 de Ubuntu 22.04 en Windows, desplegando un clúster Minikube. Utilicé Helm para instalar ArgoCD y configuré un repositorio en GitHub como fuente única de verdad para la aplicación "Hola mundo". El objetivo principal es demostrar maestría en GitOps y Kubernetes a través de GitHub Actions y ArgoCD.
+
+* Estructura del Proyecto
+
+1. Configuración del Entorno:
+
+    Instalé Minikube en WSL2 y lo inicialicé para crear un clúster Kubernetes local.
+    Utilicé Helm para instalar ArgoCD en el clúster.
+
+2. Repositorio en GitHub:
+
+    Creé un repositorio en GitHub que actúa como fuente única de verdad para la aplicación.
+    El repositorio contiene el archivo cd.yml que define el pipeline de GitHub Actions.
+
+3. Estructura de Carpetas:
+
+    Docker: Contiene el Dockerfile y el archivo index.html para construir la imagen de "Hola mundo".
+    Kubernetes: Contiene los manifiestos deployment.yaml y service.yaml para el despliegue en Kubernetes.
+    GitHub Actions Pipeline (cd.yml)
+
+    Paso 1 - Construcción de la Imagen:
+
+        Se crea una imagen de Docker para la aplicación utilizando el Dockerfile.
+        La imagen se etiqueta con un identificador único (SHA) y se empuja al repositorio de DockerHub.
+
+    Paso 2 - Actualización del Pipeline y GitOps:
+
+        Se actualiza el archivo cd.yml con el nuevo SHA.
+        Se realiza un commit y un push al repositorio de GitHub.
+
+    Paso 3 - Despliegue Automático con ArgoCD (GitOps):
+
+        ArgoCD, configurado con Helm, detecta automáticamente el cambio en el repositorio de GitHub.
+        Aplica los manifiestos de Kubernetes almacenados en el repositorio para realizar el despliegue.
+
+* Resultados Esperados:
+
+    1. GitOps:
+
+        La aplicación "Hola mundo" se despliega y actualiza automáticamente en el clúster Minikube.
+        ArgoCD gestiona el estado deseado del clúster basándose en el repositorio de GitHub.
+
+    2. GitHub Actions:
+
+        El pipeline se ejecuta con éxito cada vez que se realiza un cambio en el repositorio.
+        La imagen se construye, etiqueta y empuja a DockerHub, y se actualiza el archivo cd.yml.
+
+3. Consideraciones Adicionales:
+
+        La estructura del proyecto y el pipeline están diseñados para lograr despliegues sin tiempo de inactividad.
+        Se ha implementado una estrategia de versionado y seguimiento mediante el uso de SHAs para garantizar consistencia.
+        La integración entre GitHub Actions, DockerHub y ArgoCD permite un flujo de desarrollo y despliegue continuo.
+        ¡Este proyecto demuestra mi capacidad para abordar el Desafío KubeOps, destacando mis habilidades en Kubernetes, GitOps, y herramientas como GitHub Actions y ArgoCD!
 
 ## Guia de ArgoCD en Kubernetes (minikube) con GitHub Actions
 
@@ -118,4 +173,5 @@ Instalación con Helm Chart y gestion desde CLI
 
 
 Jaime A. Henao
+
 Cloud Enginer.
