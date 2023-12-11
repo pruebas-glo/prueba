@@ -28,9 +28,11 @@ Instalación con Helm Chart y gestion desde CLI
 
 **Requisitos previos:**
 
-Instalamos el binario de Helm https://helm.sh/docs/intro/install/
-Instalamos Minikube https://minikube.sigs.k8s.io/docs/start/
-Instalamos el Binario de ArgoCD https://argo-cd.readthedocs.io/en/stable/cli_installation/
+* Instalamos el binario de Helm https://helm.sh/docs/intro/install/
+
+* Instalamos Minikube https://minikube.sigs.k8s.io/docs/start/
+
+* Instalamos el Binario de ArgoCD https://argo-cd.readthedocs.io/en/stable/cli_installation/
 
 **Guia**
 
@@ -113,3 +115,7 @@ Instalamos el Binario de ArgoCD https://argo-cd.readthedocs.io/en/stable/cli_ins
     ![argocd](doc/app_kube-svc1.png)
 
     ![argocd](doc/app_kube-svc2.png)
+
+
+Jaime A. Henao
+Cloud Enginer.
