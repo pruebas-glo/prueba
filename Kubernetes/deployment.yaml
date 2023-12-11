@@ -19,6 +19,6 @@ spec:
     spec:
       containers:
       - name: hw-container
-        image: jaimehenao8126/kantox:e4ce6fd46a20224def4525b7afe7c22507837ef8
+        image: jaimehenao8126/kantox:568c7d84842dea13b0e15368f3a490e10c7dd175
         ports:
         - containerPort: 80
