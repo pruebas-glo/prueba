@@ -173,7 +173,7 @@ Instalación con Helm Chart y gestion desde CLI
 
 **Diagrama**
 
-![Solucion IaC](doc/Diagrama kubeops.jpg)
+![Diagrama](doc/Diagrama_kubeops.jpg)
 
 
 Jaime A. Henao
