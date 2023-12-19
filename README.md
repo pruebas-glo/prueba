@@ -142,7 +142,7 @@ Instalación con Helm Chart y gestion desde CLI
 
     argocd proj create kubeops -d https://kubernetes.default.svc,kubeops -s https://github.com/JaimeHenaoChallange/KubeOps.git
 
-12.	Creamos el Namespace "kantox" que será el que usaremos para desplegar las aplicaciones
+12.	Creamos el Namespace "kubeops" que será el que usaremos para desplegar las aplicaciones
 
     kubectl create ns kubeops
 
@@ -175,6 +175,7 @@ Instalación con Helm Chart y gestion desde CLI
 
 ![Diagrama](doc/Diagrama_kubeops.jpg)
 
+```
 
 Jaime A. Henao
 Cloud Enginer.
