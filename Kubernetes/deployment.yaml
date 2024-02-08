@@ -3,11 +3,11 @@ kind: Deployment
 metadata:
   name: hw-deploy
 spec:
-  replicas: 2  # Ajusta el número de replicas según tus necesidades
+  replicas: 4  # Ajusta el número de replicas según tus necesidades
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 1
+      maxSurge: 2
       maxUnavailable: 1
   selector:
     matchLabels:
