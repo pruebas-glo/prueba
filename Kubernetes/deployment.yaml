@@ -19,6 +19,10 @@ spec:
     spec:
       containers:
       - name: hw-container
+<<<<<<< HEAD
         image: jaimehenao8126/kantox:b08b58057cf10c40677eae1f92b14192ea3fc2b7
+=======
+        image: jaimehenao8126/kantox:c790331009c9df0c966ae6a772565d33a1e30816
+>>>>>>> 54bb29f (prueba kube)
         ports:
         - containerPort: 80
