@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: hw-deploy
 spec:
-  replicas: 2  # Ajusta el número de replicas según tus necesidades
+  replicas: 3  # Ajusta el número de replicas según tus necesidades
   strategy:
     type: RollingUpdate
     rollingUpdate:
