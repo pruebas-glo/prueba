@@ -1,5 +1,5 @@
 # values.yaml
 cni:
   chainingMode: none
-k8sServiceHost: https://127.0.0.1:52006%
+k8sServiceHost: https://127.0.0.1:62476%
 k8sServicePort: 443
