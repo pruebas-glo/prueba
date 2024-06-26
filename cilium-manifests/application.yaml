@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/JaimeHenaoChallange/KubeOps
+    repoURL: https://github.com/pruebas-glo/prueba.git
     targetRevision: HEAD
     path: cilium-manifests
     helm:
