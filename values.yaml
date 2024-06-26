@@ -1,0 +1,3 @@
+server:
+  extraArgs:
+    - --oidc.config={"name":"GitHub","issuer":"https://github.com","clientID":"<your-client-id>","clientSecret":"<your-client-secret>","requestedScopes":["openid","profile","email"]}
