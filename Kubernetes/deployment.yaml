@@ -19,6 +19,6 @@ spec:
     spec:
       containers:
       - name: hw-container
-        image: jaimehenao8126/globant:82f394ef71bdf9c8d7b25147fcb59ce344a4987e
+        image: jaimehenao8126/globant:6687b7c5630c2c8e1547710bfde4d92563ea262b
         ports:
         - containerPort: 80
